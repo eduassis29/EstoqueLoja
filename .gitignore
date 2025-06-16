@@ -364,3 +364,4 @@ FodyWeavers.xsd
 
 EstoqueLoja.Web/appsettings.json
 EstoqueLoja.API/appsettings.json
+EstoqueLoja.API/appsettings.Development.json
