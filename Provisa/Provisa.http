@@ -1,0 +1,6 @@
+@Provisa_HostAddress = http://localhost:5020
+
+GET {{Provisa_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

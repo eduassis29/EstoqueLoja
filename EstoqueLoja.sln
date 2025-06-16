@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36203.30
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EstoqueLoja.API", "EstoqueLoja.API\EstoqueLoja.API.csproj", "{4894FBBB-0055-4F06-86C3-7CFE12676556}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EstoqueLoja.WEB", "EstoqueLoja.WEB\EstoqueLoja.WEB.csproj", "{CD56C614-9E48-482D-8CEF-83C6C3E38BE7}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4894FBBB-0055-4F06-86C3-7CFE12676556}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4894FBBB-0055-4F06-86C3-7CFE12676556}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4894FBBB-0055-4F06-86C3-7CFE12676556}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4894FBBB-0055-4F06-86C3-7CFE12676556}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CD56C614-9E48-482D-8CEF-83C6C3E38BE7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CD56C614-9E48-482D-8CEF-83C6C3E38BE7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CD56C614-9E48-482D-8CEF-83C6C3E38BE7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CD56C614-9E48-482D-8CEF-83C6C3E38BE7}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {AE4A6E45-2168-4318-B0E1-C904E2676C6A}
+	EndGlobalSection
+EndGlobal
