@@ -1,6 +1,5 @@
 ﻿using EstoqueLoja.WEB.Interfaces;
 using EstoqueLoja.WEB.Models;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EstoqueLoja.WEB.Controllers {
@@ -32,7 +31,7 @@ namespace EstoqueLoja.WEB.Controllers {
         public ActionResult Create(Usuario collection) {
             try {
                 _IusuarioRepository.Add(collection);
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Index","Home");
             }
             catch {
                 return View();

@@ -5,24 +5,26 @@ using System.Text;
 
 namespace EstoqueLoja.WEB.Repositorys {
     public class UsuarioRepository : IUsuarioRepository {
-        private readonly string uprApi = "https://localhost:44359/api/Usuario";
+        private readonly string uprApi = "https://localhost:44359/api/Usuario/";
 
-        public void Add(Usuario usuario) {
+        public Usuario Add(Usuario usuario) {
             var usuarioCriado = new Usuario();
             try {
                 using (var cliente = new HttpClient()) {
                     string jsonObjeto = JsonConvert.SerializeObject(usuario);
                     var content = new StringContent(jsonObjeto, Encoding.UTF8, "application/json");
-                    var resposta = cliente.PostAsync(uprApi+"Add", content);
+                    var resposta = cliente.PostAsync(uprApi + "Add/", content);
                     resposta.Wait();
                     if(resposta.Result.IsSuccessStatusCode) {
-                        var retorno = 200;
+                        var retorno = resposta.Result.Content.ReadAsStringAsync();
+                        usuarioCriado = JsonConvert.DeserializeObject<Usuario>(retorno.Result);
                     }
                 }
             }
             catch (Exception ex) { 
             
             }
+            return usuarioCriado;
         }
 
         public Usuario Delete(Usuario usuario) {

@@ -362,7 +362,7 @@ MigrationBackup/
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
 
-EstoqueLoja.Web/appsettings.json
-EstoqueLoja.Web/appsettings.Development.json
-EstoqueLoja.API/appsettings.json
-EstoqueLoja.API/appsettings.Development.json
+#EstoqueLoja.Web/appsettings.json
+#EstoqueLoja.Web/appsettings.Development.json
+#EstoqueLoja.API/appsettings.json
+#EstoqueLoja.API/appsettings.Development.json

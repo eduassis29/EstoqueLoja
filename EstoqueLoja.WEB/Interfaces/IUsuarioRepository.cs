@@ -2,7 +2,7 @@
 
 namespace EstoqueLoja.WEB.Interfaces {
     public interface IUsuarioRepository {
-        void Add(Usuario usuario);
+        Usuario Add(Usuario usuario);
 
         void Update(Usuario usuario);
 
