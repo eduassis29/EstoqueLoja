@@ -1,0 +1,22 @@
+﻿@model EstoqueLoja.API.DTOs.LoginDTO
+
+<h2>Login</h2>
+
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Login" method="post">
+            <div>
+                <label class="form-label">Usuário</label>
+                <input asp-for="NomeUse" class="form-control"/>
+            </div>
+            <div>
+                <label class="form-label">Senha</label>
+                <input asp-for="PasswordUse" type="password" class="form-control"/>
+            </div>
+            <button type="submit" class="btn btn-primary mt-4">Entrar</button>
+        </form>
+    </div>
+</div>
+@if (ViewBag.Error != null) {
+    <p style="color:red">@ViewBag.Error</p>
+}

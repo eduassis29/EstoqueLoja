@@ -16,8 +16,8 @@ namespace EstoqueLoja.API.Controllers {
         }
 
         [HttpGet("GetAll")]
-        public List<Produto> GetAll() {
-            return _produtoRepository.GetAll();
+        public async Task<IEnumerable<Produto>> GetAll() {
+            return await _produtoRepository.GetAll();
         }
 
         [HttpPost("Add")]
@@ -47,7 +47,7 @@ namespace EstoqueLoja.API.Controllers {
 
             _produtoRepository.Delete(produto);
             if (await _produtoRepository.SaveAllAsync()) {
-                return Ok("Produto Excluido com Sucesso");
+                return Ok(produto);
             }
             return BadRequest("Não foi possível Excluir Produto");
         }

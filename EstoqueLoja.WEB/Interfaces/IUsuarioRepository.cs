@@ -6,10 +6,10 @@ namespace EstoqueLoja.WEB.Interfaces {
 
         void Update(Usuario usuario);
 
-        void Delete(Usuario usuario);
+        Usuario Delete(Usuario usuario);
 
-        Task<Usuario> GetById(int id);
+        Usuario GetById(int id);
 
-        Task<bool> SaveAllAsync();
+        bool SaveAllAsync();
     }
 }

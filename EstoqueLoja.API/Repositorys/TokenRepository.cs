@@ -20,7 +20,7 @@ namespace EstoqueLoja.API.Repositorys {
 
 
         public string GenerateToken(LoginDTO loginDTO) {
-            var userDataBase = _usuarioRepository.GetByName(loginDTO.NomeUse);
+            var userDataBase = _usuarioRepository.GetByNome(loginDTO.NomeUse);
             if (loginDTO.NomeUse != userDataBase.NomeUse || loginDTO.PasswordUse != userDataBase.PasswordUse) {
                 return string.Empty;
             }

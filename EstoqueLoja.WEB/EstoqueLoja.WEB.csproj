@@ -12,7 +12,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Views\Login\" />
+    <ProjectReference Include="..\EstoqueLoja.API\EstoqueLoja.API.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Views\Token\" />
   </ItemGroup>
 
 </Project>

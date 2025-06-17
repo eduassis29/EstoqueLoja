@@ -1,0 +1,36 @@
+﻿@model EstoqueLoja.WEB.Models.ItensEstoque
+
+@{
+    ViewData["Title"] = "DetailsLoja";
+}
+
+<h1>DetailsLoja</h1>
+
+<div>
+    <h4>ItensEstoque</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.IdPro)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.IdPro)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.IdLoj)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.IdLoj)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.QuantidadeIte)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.QuantidadeIte)
+        </dd>
+    </dl>
+</div>
+<div>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.IdLoj }) |
+    <a asp-action="Index">Back to List</a>
+</div>

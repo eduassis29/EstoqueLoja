@@ -1,5 +1,6 @@
 ﻿using EstoqueLoja.API.Interfaces;
 using EstoqueLoja.API.Models;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace EstoqueLoja.API.Repositorys {
@@ -19,8 +20,8 @@ namespace EstoqueLoja.API.Repositorys {
             _context.Produtos.Remove(produto);
         }
 
-        public List<Produto> GetAll() {
-            return _context.Produtos.ToList();
+        public async Task<IEnumerable<Produto>> GetAll() {
+            return await _context.Produtos.ToListAsync();
         }
 
         public async Task<Produto> GetById(int id) {

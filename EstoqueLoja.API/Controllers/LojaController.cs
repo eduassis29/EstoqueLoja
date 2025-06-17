@@ -8,7 +8,7 @@ namespace EstoqueLoja.API.Controllers {
     [ApiController]
     [Route("api/[controller]")]
 
-    [Authorize(Roles = "Admin")]
+    //[Authorize(Roles = "Admin")]
     public class LojaController : Controller {
 
         private readonly ILojaRepository _lojaRepository;
@@ -18,8 +18,8 @@ namespace EstoqueLoja.API.Controllers {
         }
 
         [HttpGet("GetAll")]
-        public async Task<ActionResult<IEnumerable<Loja>>> GetLojas() {
-            return Ok(await _lojaRepository.GetAll());
+        public async Task<IEnumerable<Loja>> GetLojas() {
+            return await _lojaRepository.GetAll();
         }
 
         [HttpPost("Add")]
@@ -49,7 +49,7 @@ namespace EstoqueLoja.API.Controllers {
 
             _lojaRepository.Delete(loja);
             if(await _lojaRepository.SaveAllAsync()) {
-                return Ok("Loja Deletada com Sucesso");
+                return Ok(loja);
             }
             return BadRequest("Loja não pode ser Deletada");
         }

@@ -1,4 +1,5 @@
 ﻿using EstoqueLoja.API.Models;
+using Microsoft.AspNetCore.Mvc;
 
 namespace EstoqueLoja.API.Interfaces {
     public interface IProdutoRepository {
@@ -10,7 +11,7 @@ namespace EstoqueLoja.API.Interfaces {
 
         Task<Produto> GetById(int id);
 
-        List<Produto> GetAll();
+        Task<IEnumerable<Produto>> GetAll();
 
         Task<bool> SaveAllAsync();
     }

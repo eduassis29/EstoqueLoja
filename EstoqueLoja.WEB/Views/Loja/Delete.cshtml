@@ -1,4 +1,4 @@
-﻿@model EstoqueLoja.WEB.Models.Produto
+﻿@model EstoqueLoja.WEB.Models.Loja
 
 @{
     ViewData["Title"] = "Delete";
@@ -8,31 +8,31 @@
 
 <h3>Are you sure you want to delete this?</h3>
 <div>
-    <h4>Produto</h4>
+    <h4>Loja</h4>
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.IdPro)
+            @Html.DisplayNameFor(model => model.IdLoj)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.IdPro)
+            @Html.DisplayFor(model => model.IdLoj)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.NomePro)
+            @Html.DisplayNameFor(model => model.NomeLoj)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.NomePro)
+            @Html.DisplayFor(model => model.NomeLoj)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.PrecoPro)
+            @Html.DisplayNameFor(model => model.EnderecoLoj)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.PrecoPro)
+            @Html.DisplayFor(model => model.EnderecoLoj)
         </dd>
     </dl>
     
     <form asp-action="Delete">
-        <input type="hidden" asp-for="IdPro"/>
+        <input type="hidden" asp-for="IdLoj" />
         <input type="submit" value="Delete" class="btn btn-danger" /> |
         <a asp-action="Index">Back to List</a>
     </form>

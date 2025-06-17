@@ -5,21 +5,21 @@ using Microsoft.AspNetCore.Mvc;
 namespace EstoqueLoja.WEB.Controllers {
 
     [AuthorizeSession]
-    public class ProdutoController : Controller {
-        private readonly IProdutoRepository _IProdutoRepository;
+    public class LojaController : Controller {
+        private readonly ILojaRepository _lojaRepository;
 
-        public ProdutoController(IProdutoRepository produtoRepository) {
-            _IProdutoRepository = produtoRepository;
+        public LojaController(ILojaRepository lojaRepository) {
+            _lojaRepository = lojaRepository;
         }
 
         // GET: UsuarioController
         public ActionResult Index() {
-            return View(_IProdutoRepository.GetAll());
+            return View(_lojaRepository.GetAll());
         }
 
         // GET: UsuarioController/Details/5
         public ActionResult Details(int id) {
-            return View(_IProdutoRepository.GetById(id));
+            return View(_lojaRepository.GetById(id));
         }
 
         // GET: UsuarioController/Create
@@ -30,9 +30,9 @@ namespace EstoqueLoja.WEB.Controllers {
         // POST: UsuarioController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Produto collection) {
+        public ActionResult Create(Loja collection) { 
             try {
-                _IProdutoRepository.Add(collection);
+                _lojaRepository.Add(collection);
                 return RedirectToAction(nameof(Index));
             }
             catch {
@@ -42,15 +42,15 @@ namespace EstoqueLoja.WEB.Controllers {
 
         // GET: UsuarioController/Edit/5
         public ActionResult Edit(int id) {
-            return View(_IProdutoRepository.GetById(id));
+            return View(_lojaRepository.GetById(id));
         }
 
         // POST: UsuarioController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, Produto collection) {
+        public ActionResult Edit(int id, Loja collection) {
             try {
-                _IProdutoRepository.Update(collection);
+                _lojaRepository.Update(collection);
                 return RedirectToAction(nameof(Index));
             }
             catch {
@@ -60,15 +60,15 @@ namespace EstoqueLoja.WEB.Controllers {
 
         // GET: UsuarioController/Delete/5
         public ActionResult Delete(int id) {
-            return View(_IProdutoRepository.GetById(id));
+            return View(_lojaRepository.GetById(id));
         }
 
         // POST: UsuarioController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, Produto collection) {
+        public ActionResult Delete(int id, Loja collection) {
             try {
-                _IProdutoRepository.Delete(collection);
+                _lojaRepository.Delete(collection);
                 return RedirectToAction(nameof(Index));
             }
             catch {

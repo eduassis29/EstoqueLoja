@@ -1,0 +1,47 @@
+﻿@model IEnumerable<EstoqueLoja.WEB.Models.Loja>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.IdLoj)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NomeLoj)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EnderecoLoj)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.IdLoj)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NomeLoj)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EnderecoLoj)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.IdLoj }) |
+                @Html.ActionLink("Details", "Details", new { id = item.IdLoj }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.IdLoj })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

@@ -2,6 +2,7 @@
 using EstoqueLoja.API.DTOs;
 using EstoqueLoja.API.Interfaces;
 using EstoqueLoja.API.Models;
+using EstoqueLoja.API.Repositorys;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,7 +10,7 @@ namespace EstoqueLoja.API.Controllers {
     [ApiController]
     [Route("api/[controller]")]
 
-    [Authorize(Roles = "Admin")]
+    //[Authorize(Roles = "Admin")]
     public class ItensEstoqueController : Controller {
 
         private readonly IItensEstoqueRepository _itensEstoqueRepository;
@@ -21,10 +22,10 @@ namespace EstoqueLoja.API.Controllers {
         }
 
         [HttpGet("GetAll")]
-        public async Task<ActionResult<IEnumerable<ItensEstoque>>> GetItens() {
+        public async Task<IEnumerable<ItensEstoqueDTO>> GetItens() {
             var itensEstoque = await _itensEstoqueRepository.GetAll();
-            var itensEstoqueDTO = _mapper.Map<IEnumerable<ItensEstoqueDTO>>(itensEstoque);
-            return Ok(itensEstoqueDTO);
+            var itensEstoqueDTO = _mapper.Map<List<ItensEstoqueDTO>>(itensEstoque);
+            return itensEstoqueDTO;
         }
 
         [HttpPost("Add")]
@@ -60,6 +61,15 @@ namespace EstoqueLoja.API.Controllers {
                 return Ok("Item da Loja Deletado com Sucesso");
             }
             return BadRequest("Não foi possível Deletar o Item da Loja");
+        }
+
+        [HttpGet("GetById/{id}")]
+        public async Task<ActionResult> GetProdutoById(int id) {
+            var produto = await _itensEstoqueRepository.GetByIdLoja(id);
+            if (produto == null) {
+                return NotFound("Não foi possível encontrar o Produto");
+            }
+            return Ok(produto);
         }
     }
 }

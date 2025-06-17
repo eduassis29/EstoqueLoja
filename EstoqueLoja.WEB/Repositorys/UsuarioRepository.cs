@@ -11,7 +11,7 @@ namespace EstoqueLoja.WEB.Repositorys {
             var usuarioCriado = new Usuario();
             try {
                 using (var cliente = new HttpClient()) {
-                    var jsonObjeto = JsonConvert.SerializeObject(usuario);
+                    string jsonObjeto = JsonConvert.SerializeObject(usuario);
                     var content = new StringContent(jsonObjeto, Encoding.UTF8, "application/json");
                     var resposta = cliente.PostAsync(uprApi+"Add", content);
                     resposta.Wait();
@@ -25,55 +25,56 @@ namespace EstoqueLoja.WEB.Repositorys {
             }
         }
 
-        public void Delete(Usuario usuario) {
-            var usuarioCriado = new Usuario();
-            usuarioCriado.IdUse = usuario.IdUse;
+        public Usuario Delete(Usuario usuario) {
+            var usuarioDeletado = new Usuario();
             try {
                 using (var cliente = new HttpClient()) {
-                    var jsonObjeto = JsonConvert.SerializeObject(usuarioCriado);
-                    var content = new StringContent(jsonObjeto, Encoding.UTF8, "application/json");
-                    var resposta = cliente.PostAsync(uprApi + "Delete", content);
-                    resposta.Wait();
-                    if (resposta.Result.IsSuccessStatusCode) {
-                        var retorno = 200;
+                    var resposta = cliente.DeleteAsync(uprApi + $"Delete/{usuario.IdUse}").Result;
+                    if (resposta.IsSuccessStatusCode) {
+                        var retorno = resposta.Content.ReadAsStringAsync().Result;
+                        usuarioDeletado = JsonConvert.DeserializeObject<Usuario>(retorno);
                     }
                 }
             }
             catch (Exception ex) {
-
+                Console.WriteLine("Erro no ProdutoRepository", ex);
             }
+            return usuarioDeletado;
         }
 
-        public async Task<bool> SaveAllAsync() {
+        public bool SaveAllAsync() {
             return true;
         }
 
         public void Update(Usuario usuario) {
+            var usuarioCriado = new Usuario();
             try {
                 using (var cliente = new HttpClient()) {
-                    var jsonObjeto = JsonConvert.SerializeObject(usuario);
+                    string jsonObjeto = JsonConvert.SerializeObject(usuario);
                     var content = new StringContent(jsonObjeto, Encoding.UTF8, "application/json");
-                    var resposta = cliente.PostAsync(uprApi + "Update", content);
+                    var resposta = cliente.PutAsync(uprApi + "Update", content);
                     resposta.Wait();
                     if (resposta.Result.IsSuccessStatusCode) {
-                        var retorno = 200;
+                        var retorno = resposta.Result.Content.ReadAsStringAsync();
+                        usuarioCriado = JsonConvert.DeserializeObject<Usuario>(retorno.Result);
                     }
                 }
             }
             catch(Exception ex) { }
         }
 
-        public async Task<Usuario> GetById(int id) {
+        public Usuario GetById(int id) {
             var usuarioCriado = new Usuario();
             usuarioCriado.IdUse = id;
             try {
                 using (var cliente = new HttpClient()) {
-                    var jsonObjeto = JsonConvert.SerializeObject(usuarioCriado);
+                    string jsonObjeto = JsonConvert.SerializeObject(usuarioCriado);
                     var content = new StringContent(jsonObjeto, Encoding.UTF8, "application/json");
-                    var resposta = cliente.PostAsync(uprApi + "Delete", content);
+                    var resposta = cliente.GetAsync(uprApi + $"GetById/{id}");
                     resposta.Wait();
                     if (resposta.Result.IsSuccessStatusCode) {
-                        var retorno = 200;
+                        var retorno = resposta.Result.Content.ReadAsStringAsync();
+                        usuarioCriado = JsonConvert.DeserializeObject<Usuario>(retorno.Result);
                     }
                 }
             }

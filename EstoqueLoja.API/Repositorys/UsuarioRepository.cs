@@ -20,10 +20,6 @@ namespace EstoqueLoja.API.Repositorys {
             _context.Usuarios.Remove(usuario);
         }
 
-        public Usuario? GetByName(string nome) {
-            return _context.Usuarios.Where(x => x.NomeUse == nome).FirstOrDefault();
-        }
-
         public async Task<bool> SaveAllAsync() {
             return await _context.SaveChangesAsync() > 0;
         }
@@ -34,6 +30,10 @@ namespace EstoqueLoja.API.Repositorys {
 
         public async Task<Usuario> GetById(int id) {
             return await _context.Usuarios.Where(x => x.IdUse == id).FirstOrDefaultAsync();
+        }
+
+        public Usuario GetByNome(string nome) {
+            return _context.Usuarios.Where(x => x.NomeUse == nome).FirstOrDefault();
         }
     }
 }

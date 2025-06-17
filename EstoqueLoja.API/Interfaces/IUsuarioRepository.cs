@@ -8,7 +8,7 @@ namespace EstoqueLoja.API.Interfaces {
 
         void Delete(Usuario usuario);
 
-        Usuario GetByName(string nome);
+        Usuario GetByNome(string nome);
 
         Task<Usuario> GetById(int id);
 
