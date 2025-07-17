@@ -8,7 +8,7 @@ namespace EstoqueLoja.API.Controllers {
     [ApiController]
     [Route("api/[controller]")]
 
-    //[Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin")]
     public class UsuarioController : Controller {
         private readonly IUsuarioRepository _usuarioRepository;
 
@@ -17,6 +17,7 @@ namespace EstoqueLoja.API.Controllers {
         }
 
         [HttpPost("Add")]
+        [AllowAnonymous]
         public async Task<ActionResult> AddUser(Usuario usuario) {
             _usuarioRepository.Add(usuario);
             if (await _usuarioRepository.SaveAllAsync()) {

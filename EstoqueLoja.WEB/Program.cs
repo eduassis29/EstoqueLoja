@@ -1,5 +1,6 @@
 using EstoqueLoja.WEB.Interfaces;
 using EstoqueLoja.WEB.Repositorys;
+using Microsoft.AspNetCore.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,6 +11,7 @@ builder.Services.AddSingleton<IProdutoRepository, ProdutoRepository>();
 builder.Services.AddSingleton<ILojaRepository, LojaRepository>();
 builder.Services.AddSingleton<IItensEstoqueRepository, ItensEstoqueRepository>();
 builder.Services.AddScoped<ITokenRepository, TokenRepository>();
+builder.Services.AddHttpContextAccessor();
 
 builder.Services.AddSession(options => {
     options.IdleTimeout = TimeSpan.FromMinutes(30);
@@ -33,6 +35,8 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
+
+app.UseAuthentication();
 
 app.UseAuthorization();
 

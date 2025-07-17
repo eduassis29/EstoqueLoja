@@ -15,7 +15,7 @@ namespace EstoqueLoja.WEB.Repositorys {
                     var content = new StringContent(jsonObjeto, Encoding.UTF8, "application/json");
                     var resposta = cliente.PostAsync(uprApi + "/Login", content);
                     resposta.Wait();
-                    if (resposta.Result.IsSuccessStatusCode) {
+                    if (resposta != null) {
                         var retorno = resposta.Result.Content.ReadAsStringAsync();
                         retorno.Wait();
                         token = retorno.Result;

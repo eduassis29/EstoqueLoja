@@ -7,7 +7,7 @@ namespace EstoqueLoja.API.Controllers {
     [ApiController]
     [Route("api/[controller]")]
 
-    //[Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin")]
     public class ProdutoController : Controller {
         private readonly IProdutoRepository _produtoRepository;
 
