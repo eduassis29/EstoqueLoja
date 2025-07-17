@@ -1,4 +1,16 @@
-﻿<!DOCTYPE html>
+﻿@{
+    var IsAutenticado = Context.Session.GetString("JWToken");
+    string nomeUsuario = "Usuário";
+
+    if (!string.IsNullOrEmpty(IsAutenticado))
+    {
+        var handler = new System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler();
+        var jwtToken = handler.ReadJwtToken(IsAutenticado);
+        nomeUsuario = jwtToken?.Claims?.FirstOrDefault(c => c.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name")?.Value ?? "Usuário";
+    }
+}
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -19,24 +31,34 @@
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
+                        @if (!string.IsNullOrEmpty(IsAutenticado))
+                        {
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Produto" asp-action="Index">Produtos</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Loja" asp-action="Index">Loja</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="ItensEstoque" asp-action="Index">Itens em Estoque</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Login" asp-action="Login">Login</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Usuario" asp-action="Create">Cadastrar</a>
-                        </li>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Produto" asp-action="Index">Produtos</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Loja" asp-action="Index">Loja</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="ItensEstoque" asp-action="Index">Itens em Estoque</a>
+                            </li>
+                            <span class="navbar-text ms-auto me-3 text-dark">Olá @nomeUsuario</span>
+                        }
+                        @if (string.IsNullOrEmpty(IsAutenticado))
+                        {
+                            <li class="nav-item ms-auto">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Login" asp-action="Login">Login</a>
+                            </li>
+                            <li class="nav-item me-3">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Usuario" asp-action="Create">Cadastrar</a>
+                            </li>
+                        }
+                        @if (!string.IsNullOrEmpty(IsAutenticado))
+                        {
+                            <li class="nav-item me-3">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Login" asp-action="Logout">Logout</a>
+                            </li>
+                        }
                     </ul>
                 </div>
             </div>

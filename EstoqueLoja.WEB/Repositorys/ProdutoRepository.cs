@@ -10,10 +10,27 @@ namespace EstoqueLoja.WEB.Repositorys {
     public class ProdutoRepository : IProdutoRepository {
         private readonly string uprApi = "https://localhost:44359/api/Produto/";
 
+        private readonly IHttpContextAccessor _httpContextAccessor;
+
+        public ProdutoRepository(IHttpContextAccessor httpContextAccessor) {
+            _httpContextAccessor = httpContextAccessor;
+        }
+
+        private HttpClient CriarHttpClientComToken() {
+            var httpClient = new HttpClient();
+            var token = _httpContextAccessor.HttpContext?.Session?.GetString("JWToken");
+
+            if (!string.IsNullOrEmpty(token)) {
+                httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
+            };
+
+            return httpClient;
+        }
+
         public Produto Add(Produto produto) {
             var produtoCriado = new Produto();
             try {
-                using (var cliente = new HttpClient()) {
+                using (var cliente = CriarHttpClientComToken()) {
                     string jsonObjeto = JsonConvert.SerializeObject(produto);
                     var content = new StringContent(jsonObjeto, Encoding.UTF8, "application/json");
                     var resposta = cliente.PostAsync(uprApi + "Add/", content);
@@ -33,7 +50,7 @@ namespace EstoqueLoja.WEB.Repositorys {
         public Produto Delete(Produto produto) {
             var produtoDeletado = new Produto ();
             try {
-                using (var cliente = new HttpClient()) {
+                using (var cliente = CriarHttpClientComToken()) {
                     var resposta = cliente.DeleteAsync(uprApi + $"Delete/{produto.IdPro}").Result;
                     if (resposta.IsSuccessStatusCode) {
                         var retorno = resposta.Content.ReadAsStringAsync().Result;
@@ -54,7 +71,7 @@ namespace EstoqueLoja.WEB.Repositorys {
         public Produto Update(Produto produto) {
             var produtoCriado = new Produto();
             try {
-                using (var cliente = new HttpClient()) {
+                using (var cliente = CriarHttpClientComToken()) {
                     string jsonObjeto = JsonConvert.SerializeObject(produto);
                     var content = new StringContent(jsonObjeto, Encoding.UTF8, "application/json");
                     var resposta = cliente.PutAsync(uprApi + "Update", content);
@@ -74,7 +91,7 @@ namespace EstoqueLoja.WEB.Repositorys {
         public Produto GetById(int id) {
             var produtoCriado = new Produto { IdPro = id };
             try {
-                using (var cliente = new HttpClient()) {
+                using (var cliente = CriarHttpClientComToken()) {
                     var resposta = cliente.GetAsync(uprApi + $"GetById/{id}");
                     resposta.Wait();
                     if (resposta.Result.IsSuccessStatusCode) {
@@ -97,7 +114,7 @@ namespace EstoqueLoja.WEB.Repositorys {
         public List<Produto> GetAll() {
             var retorno = new List<Produto>();
             try {
-                using (var cliente = new HttpClient()) {
+                using (var cliente = CriarHttpClientComToken()) {
                     var resposta = cliente.GetStringAsync(uprApi + "GetAll");
                     resposta.Wait();
                     retorno = JsonConvert.DeserializeObject<Produto[]>(resposta.Result).ToList();

@@ -21,7 +21,9 @@ namespace EstoqueLoja.WEB.Controllers {
             var token = _tokenRepository.GenerateToken(login);
 
             if (string.IsNullOrEmpty(token)) {
+                
                 ModelState.AddModelError("", "Login inválido.");
+                TempData["LoginError"] = "Usuário ou Senha Inválidos";
                 return View();
             }
 
@@ -29,6 +31,13 @@ namespace EstoqueLoja.WEB.Controllers {
 
             return RedirectToAction("Index", "Home");
 
+        }
+
+        [HttpGet]
+        public ActionResult Logout() {
+            HttpContext.Session.Remove("JWToken");
+
+            return RedirectToAction("Index", "Home");
         }
     }
 }

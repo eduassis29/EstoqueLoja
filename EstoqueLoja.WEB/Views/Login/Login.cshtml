@@ -17,6 +17,6 @@
         </form>
     </div>
 </div>
-@if (ViewBag.Error != null) {
-    <p style="color:red">@ViewBag.Error</p>
+@if (TempData["LoginError"] != null) {
+    <p style="color:red">@TempData["LoginError"]</p>
 }

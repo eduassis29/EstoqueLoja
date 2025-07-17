@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion.Internal;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Text;
@@ -25,13 +26,31 @@ builder.Services.AddAuthentication(x => {
     x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
 }).AddJwtBearer(options => {
     options.TokenValidationParameters = new TokenValidationParameters {
-        ValidateIssuer = true,
-        ValidateAudience = true,
+        ValidateIssuer = false,
+        ValidateAudience = false,
         ValidateLifetime = true,
         ValidateIssuerSigningKey = true,
-        ValidIssuer = builder.Configuration["jwt:issuer"],
-        ValidAudience = builder.Configuration["jwt:audience"],
         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["jwt:secretKey"]))
+    };
+
+    options.Events = new JwtBearerEvents {
+        OnMessageReceived = context => {
+            var token = context.Request.Headers["Authorization"].FirstOrDefault();
+            if(!string.IsNullOrEmpty(token) && !token.StartsWith("Bearer")) {
+                context.Token = token;
+            }
+            return Task.CompletedTask;
+        },
+
+        OnAuthenticationFailed = context => {
+            Console.WriteLine("Token Inválido: ", context.Exception.Message);
+            return Task.CompletedTask;
+        },
+
+        OnTokenValidated = context => {
+            Console.WriteLine("Token Válido: ", context.SecurityToken);
+            return Task.CompletedTask;
+        }
     };
 });
 
@@ -51,7 +70,7 @@ builder.Services.AddSwaggerGen(options => {
         Scheme = "Bearer",
         BearerFormat = "JWT",
         In = ParameterLocation.Header,
-        Description = "Digite 'Bearer antes de colocar o token'"
+        Description = "Coloque apenas o JWToken para autorizar"
     });
 
     options.AddSecurityRequirement(new OpenApiSecurityRequirement { 
